@@ -55,56 +55,7 @@ const puppeteer = require('puppeteer');
     window.scrollTo(0, document.body.scrollHeight);
   });
 
-//   await waitUntil(2000)
-
-//   page.evaluate(() => {
-//     window.scrollTo(0, document.body.scrollHeight);
-//   });
-
-//   await waitUntil(2000)
-
-//   page.evaluate(() => {
-//     window.scrollTo(0, document.body.scrollHeight);
-//   });
-
-//   await waitUntil(2000)
-
-//   page.evaluate(() => {
-//     window.scrollTo(0, document.body.scrollHeight);
-//   });
-
-//   await waitUntil(2000)
-
-//   page.evaluate(() => {
-//     window.scrollTo(0, document.body.scrollHeight);
-//   });
-
-//   await waitUntil(1000)
-
-//   page.evaluate(() => {
-//     window.scrollTo(0, document.body.scrollHeight);
-//   });
-
-//   await waitUntil(1000)
-
-//   page.evaluate(() => {
-//     window.scrollTo(0, document.body.scrollHeight);
-//   });
-
-//   await waitUntil(1000)
-  
-//   page.evaluate(() => {
-//     window.scrollTo(0, 3000);
-//   });
-
-//   let btn = await page.evaluate(()=>{
-//     document.querySelector(".infinite-scroller__show-more-button--visible")
-//   })
-
 // 120 results
-
-
-
 
   // Wait for the results to load
   await page.waitForSelector('.base-card', { visible: true });
@@ -125,13 +76,15 @@ const puppeteer = require('puppeteer');
     jobCards.forEach(card => {
         setTimeout(()=>{},1000)
       const jobTitle = card.querySelector('a')?.innerText || 'No title';
+      const jobId = card.querySelector('a')?.href || 'No link';
+
       const job = card.querySelector('a').click()
       let jobDescription = ""
       setTimeout(()=>{
         jobDescription = document.querySelector('.show-more-less-html__markup').innerHTML;
       },2000)
       descriptions.push({
-        jobTitle,jobDescription
+        jobTitle,jobDescription,jobId
       });
     });
     window.scrollBy(0, window.innerHeight);
