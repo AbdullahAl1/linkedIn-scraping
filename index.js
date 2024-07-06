@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-
 (async () => {
   const browser = await puppeteer.launch({ headless: false }); // Set headless: true to run in the background
   const page = await browser.newPage();
@@ -92,5 +91,27 @@ const puppeteer = require('puppeteer');
   });
 
   console.log(jobDescriptions);
-//   await browser.close();
+  let desc = []
+  jobDescriptions.forEach(async (job)=>{
+    const jobPage =  await browser.newPage();
+    try{
+      await jobPage.goto(job.jobId, { waitUntil: 'networkidle2' });
+      setTimeout(async ()=>{
+        const jobDescription = await jobPage.evaluate(() => {
+          let v = document.querySelector(".show-more-less-html__markup").innerText;
+          desc.push(v)
+         })
+      },5000)
+    }catch (e){
+
+    }
+    
+  })
+  console.log(desc);
+  //   await browser.close();
 })();
+
+// console.log(job.jobId);
+// const browser = puppeteer.launch();
+// const page = browser.newPage();
+// page.goto(`${job.jobId}`);
